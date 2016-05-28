@@ -6,12 +6,13 @@ from .models import Sprint, Task
 User = get_user_model()
 
 class SprintSerializer(serializers.ModelSerializer):
-	"""docstring for SprintSerializer"serializers.ModelSerializer"""
-	links = serializers.SerializerMethodField('get_links')
+	
+	links = serializers.SerializerMethodField()
 	
 	class Meta:
 		model = Sprint
 		fields = ('id', 'name', 'descript', 'end', 'links', )	
+	
 	def get_links(self, obj):
 		request = self.context['request']
 		return {
@@ -19,7 +20,7 @@ class SprintSerializer(serializers.ModelSerializer):
 		}
 
 class TaskSerializer(serializers.ModelSerializer):
-	"""docstring for serializers.ModelSerializer."""
+
 	links = serializers.SerializerMethodField('get_links')
 
 	assigned = serializers.SlugRelatedField(slug_field=User.USERNAME_FIELD, required = False, read_only=True)
@@ -48,7 +49,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-	"""docstring for serializers.ModelSerializer."""
+	
 	full_name = serializers.CharField(source='get_full_name', read_only=True)
 	links = serializers.SerializerMethodField('get_links')
 
