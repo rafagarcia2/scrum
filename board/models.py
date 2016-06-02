@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
@@ -30,7 +31,7 @@ class Task(models.Model):
 	sprint = models.ForeignKey(Sprint, blank=True, default='')
 	status = models.SmallIntegerField(choices=STATUS_CHOICE, default=STATUS_TODO)
 	order = models.SmallIntegerField(default=0)
-	#assigned = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
+	assigned = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
 	started = models.DateField(blank=True, null=True)
 	due = models.DateField(blank=True, null=True)
 	completed = models.DateField(blank=True, null=True)
